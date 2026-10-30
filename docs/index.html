@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Feasibility Stress Test — Tambura Oil, Capital Rationing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --blue:#2b6cb0; --dark:#1a202c; --gray:#4a5568; --bg:#f7fafc; --green:#2f855a; --gold:#d69e2e; --purple:#805ad5; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin:0; color:var(--dark); background:#fff; line-height:1.6; }
+  header { background:var(--dark); color:#fff; padding:56px 20px; }
+  header .kicker { color:#90cdf4; font-weight:600; letter-spacing:.04em; text-transform:uppercase; font-size:13px; }
+  header h1 { font-size:32px; margin:10px 0 14px; max-width:760px; }
+  header p { max-width:680px; color:#cbd5e0; font-size:17px; }
+  .wrap { max-width:860px; margin:0 auto; padding:40px 20px; }
+  .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:16px; margin:28px 0; }
+  .stat { background:var(--bg); border-radius:10px; padding:18px; border:1px solid #e2e8f0; }
+  .stat .num { font-size:24px; font-weight:700; color:var(--blue); }
+  .stat .label { font-size:13px; color:var(--gray); margin-top:4px; }
+  h2 { font-size:21px; margin-top:40px; border-bottom:2px solid #e2e8f0; padding-bottom:8px; }
+  .btnrow { display:flex; gap:12px; flex-wrap:wrap; margin:24px 0; }
+  .btn { display:inline-block; background:var(--blue); color:#fff; text-decoration:none; padding:12px 20px; border-radius:8px; font-weight:600; border:none; cursor:pointer; font-size:15px; font-family:inherit; }
+  .btn.secondary { background:#fff; color:var(--blue); border:2px solid var(--blue); }
+  .btn.size { background:#fff; color:var(--gray); border:2px solid #e2e8f0; padding:10px 16px; font-size:14px; }
+  .btn.size.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+  .callout { background:#fffbea; border-left:4px solid #d69e2e; padding:16px 20px; border-radius:6px; margin:20px 0; font-size:15px; }
+  .callout.good { background:#f0fff4; border-left-color:#38a169; }
+  .callout.bad { background:#fff5f5; border-left-color:#c53030; }
+  footer { text-align:center; color:var(--gray); font-size:13px; padding:40px 20px; }
+  a { color:var(--blue); }
+  table { border-collapse:collapse; width:100%; margin:16px 0; font-size:14px; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid #e2e8f0; }
+  th { color:var(--gray); font-weight:600; }
+  .sim-panel { background:var(--bg); border:1px solid #e2e8f0; border-radius:12px; padding:24px; margin:24px 0; }
+  .sliders { display:grid; grid-template-columns:1fr 1fr; gap:18px 28px; }
+  @media (max-width:640px) { .sliders { grid-template-columns:1fr; } }
+  .slider-row label { display:flex; justify-content:space-between; font-size:14px; font-weight:600; margin-bottom:4px; }
+  .slider-row .val { color:var(--blue); font-weight:700; }
+  .slider-row input[type=range] { width:100%; accent-color:var(--blue); }
+  .sim-results { margin-top:28px; }
+  .sim-results.hidden { display:none; }
+  canvas { width:100%; height:260px; background:#fff; border:1px solid #e2e8f0; border-radius:8px; }
+  .disclosure { font-size:13px; color:var(--gray); margin-top:14px; }
+  .legend { display:flex; gap:18px; font-size:13px; margin-top:8px; flex-wrap:wrap; }
+  .legend span { display:inline-flex; align-items:center; gap:6px; }
+  .swatch { width:12px; height:3px; display:inline-block; }
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">The Feasibility Stress Test — Case Study #9 · Capital Budgeting</div>
+  <h1>Tambura Oil: The Highest NPV Was Not the Best Use of Capital</h1>
+  <p>A Monte Carlo reconstruction of a published, open-access capital-rationing study: three ways to power one oil-field pump, NPVs within US$0.03M of each other, capex ranging from US$0.39M to US$2.39M.</p>
+</header>
+<div class="wrap">
+
+<div class="callout good"><strong>Note:</strong> the paper is open access (CC BY-NC 4.0). Its full text was read through automated extraction, not a manual PDF review. This is disclosed here and in the README.</div>
+
+<h2>The confirmed findings</h2>
+<div class="stat-grid">
+  <div class="stat"><div class="num">$1.44M</div><div class="label">Option-1 (cable) NPV: highest, but needs $2.39M capex</div></div>
+  <div class="stat"><div class="num">$1.41M</div><div class="label">Option-3 (rental) NPV: 2% lower, needs $0.39M capex</div></div>
+  <div class="stat"><div class="num">5.44</div><div class="label">Option-3 profitability index vs 2.02 for Option-1</div></div>
+  <div class="stat"><div class="num">10-30%</div><div class="label">Paper's reported P(NPV &lt; 0), all options, 1,000 iterations</div></div>
+</div>
+
+<p>Source: Jamal, M.N. &amp; Sudrajat, O.Y. (2022). <em>Project Capital Rationing using Discounted Cash Flow Method, Sensitivity Analysis and Monte Carlo Simulation: Case Study Tambura Oil Development.</em> European Journal of Business and Management Research, 7(6), 287-296. <a href="https://doi.org/10.24018/ejbmr.2022.7.6.1760">DOI</a></p>
+
+<h2>The three options (paper's own tables, US$ million)</h2>
+<table>
+<tr><th>Metric</th><th>Option-1 Cable</th><th>Option-2 Genset</th><th>Option-3 Rental</th></tr>
+<tr><td>Capex</td><td>2.39</td><td>1.89</td><td>0.39</td></tr>
+<tr><td>Life-of-project opex</td><td>1.38</td><td>3.25</td><td>5.46</td></tr>
+<tr><td>NPV @ 10.45%</td><td>1.44</td><td>1.33</td><td>1.41</td></tr>
+<tr><td>IRR</td><td>36%</td><td>41%</td><td>176%</td></tr>
+<tr><td>Payback (years)</td><td>1.79</td><td>1.58</td><td>0.48</td></tr>
+<tr><td>Profitability index</td><td>2.02</td><td>2.11</td><td>5.44</td></tr>
+</table>
+
+<div class="callout bad"><strong>Honest caveat:</strong> the paper does not publish its PSC split, oil price, annual cash flows, or Monte Carlo distribution shapes. This reconstruction assumes US$70/bbl, calibrates a net contractor share per option so each NPV matches the paper, uses triangular distributions on the paper's scenario ranges, and adds one correlation (oil price with inflation) the paper does not state. It does <strong>not</strong> reproduce the paper's downside: it shows far lower probability of loss than the paper's 10-30%, and its best-case upside overshoots the paper's range. Use it to see how the capital-rationing logic behaves, not as evidence about the real field.</div>
+
+<h2>Run your own simulation</h2>
+<p>Adjust the ranges, then run 5,000 paired trials across all three options. Oil price and inflation are drawn through a Cholesky-based Gaussian copula (Box-Muller normals, then triangular inverse-transform). Production and capex use direct inverse-transform triangular sampling. Pick an option tab to see its NPV histogram.</p>
+
+<div class="sim-panel">
+  <div class="sliders">
+    <div class="slider-row"><label>Oil price downside <span class="val" id="v_pdn">-24%</span></label><input type="range" id="pdn" min="0" max="50" step="1" value="24"></div>
+    <div class="slider-row"><label>Oil price upside <span class="val" id="v_pup">+21%</span></label><input type="range" id="pup" min="0" max="50" step="1" value="21"></div>
+    <div class="slider-row"><label>Production downside <span class="val" id="v_qdn">-40%</span></label><input type="range" id="qdn" min="0" max="80" step="1" value="40"></div>
+    <div class="slider-row"><label>Production upside <span class="val" id="v_qup">+120%</span></label><input type="range" id="qup" min="0" max="150" step="5" value="120"></div>
+    <div class="slider-row"><label>Capex range <span class="val" id="v_cx">±10%</span></label><input type="range" id="cx" min="0" max="40" step="1" value="10"></div>
+    <div class="slider-row"><label>Peak inflation <span class="val" id="v_inf">8.24%</span></label><input type="range" id="inf" min="4.1" max="15" step="0.1" value="8.24"></div>
+    <div class="slider-row"><label>Price / inflation correlation <span class="val" id="v_rho">0.40</span></label><input type="range" id="rho" min="-0.9" max="0.9" step="0.05" value="0.4"></div>
+    <div class="slider-row"><label>Discount rate <span class="val" id="v_r">10.45%</span></label><input type="range" id="r" min="6" max="20" step="0.05" value="10.45"></div>
+  </div>
+  <div class="btnrow"><button class="btn" id="runBtn">Run simulation (5,000 trials)</button></div>
+
+  <div class="sim-results hidden" id="results">
+    <div class="btnrow" id="optTabs" style="margin:0 0 12px">
+      <button class="btn size active" data-opt="1">Option-1 Cable</button>
+      <button class="btn size" data-opt="2">Option-2 Genset</button>
+      <button class="btn size" data-opt="3">Option-3 Rental</button>
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num" id="r_mean">—</div><div class="label">Mean NPV (US$M)</div></div>
+      <div class="stat"><div class="num" id="r_p5">—</div><div class="label">5th percentile NPV (US$M)</div></div>
+      <div class="stat"><div class="num" id="r_ploss">—</div><div class="label">P(NPV &lt; 0)</div></div>
+      <div class="stat"><div class="num" id="r_eff">—</div><div class="label">Mean NPV per US$ of capex</div></div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num" id="r_win">—</div><div class="label">Share of trials where Option-3 beats Option-1</div></div>
+      <div class="stat"><div class="num" id="r_diff">—</div><div class="label">Mean NPV, Option-3 minus Option-1 (US$M)</div></div>
+    </div>
+    <canvas id="hist" width="800" height="260"></canvas>
+    <div class="legend">
+      <span><span class="swatch" style="background:#c53030"></span>break-even</span>
+      <span><span class="swatch" style="background:#d69e2e"></span>paper's published NPV</span>
+      <span><span class="swatch" style="background:#2f855a"></span>simulated mean</span>
+    </div>
+    <div class="disclosure">Browser-side reconstruction mirroring the notebook: 2023 capex, 2024-2030 production declining from 180 BOPD (calibrated to 0.4 MMbbl), 25% declining-balance depreciation recovered through cost recovery, per-option calibrated profit share. Not the authors' workbook.</div>
+  </div>
+</div>
+
+<h2>Explore</h2>
+<div class="btnrow">
+  <a class="btn secondary" href="notebook.html">View the full Python notebook</a>
+  <a class="btn secondary" href="https://github.com/ekalecturer/cs9-tambura-capital-rationing">View source on GitHub</a>
+</div>
+
+<h2>The lesson</h2>
+<p>NPV ranked the cable first by US$0.03M. The rental option delivered 98% of that NPV on 16% of the capital. If capital is rationed, the freed US$2.00M only has to earn US$0.03M elsewhere for the rental route to win. A board that ranks on headline NPV alone spends the scarce resource without pricing it. The paper reports no post-decision outcome, so this is a decision rule, not a result.</p>
+
+</div>
+<footer>Part of <strong>The Feasibility Stress Test</strong> — real Monte Carlo and financial-engineering case studies for capex decisions.</footer>
+
+<script>
+function randNormalStd(){ let u1=Math.random()||1e-9,u2=Math.random(); return Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2); }
+function erf(x){ const s=x<0?-1:1; x=Math.abs(x); const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911; const t=1/(1+p*x); return s*(1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x)); }
+const normCdf = z => 0.5*(1+erf(z/Math.SQRT2));
+function triInv(u,a,m,b){ const fc=(m-a)/(b-a); if(b===a) return m; return u<fc ? a+Math.sqrt(u*(b-a)*(m-a)) : b-Math.sqrt((1-u)*(b-a)*(b-m)); }
+const mean=a=>a.reduce((s,x)=>s+x,0)/a.length;
+
+// ---- Reconstruction model (mirrors notebook) ----
+const CAPEX={1:2.39,2:1.89,3:0.39}, OPEX={1:1.38,2:3.25,3:5.46}, PAPER_NPV={1:1.44,2:1.33,3:1.41};
+const SHARE={1:0.12430684317479836,2:0.11595053072793673,3:0.0977130161306737};
+const PRICE=70, PEAK=180*365, RES=0.4e6;
+// solve exponential decline D so 7 years sum to 0.4 MMbbl (bisection)
+let lo=1e-4, hi=1; const sumQ=d=>{let s=0;for(let k=0;k<7;k++)s+=PEAK*Math.exp(-d*k);return s;};
+for(let i=0;i<80;i++){ const mid=(lo+hi)/2; if(sumQ(mid)>RES) lo=mid; else hi=mid; }
+const Dd=(lo+hi)/2; const Q=[]; for(let k=0;k<7;k++) Q.push(PEAK*Math.exp(-Dd*k));
+function npvOf(k,prod,price,opx,cx,r){
+  const C=CAPEX[k]*cx, O=OPEX[k]*opx, s=SHARE[k];
+  let bal=C, carry=0, v=-C;
+  for(let t=1;t<=7;t++){
+    const R=Q[t-1]*prod*PRICE*price/1e6, o=O/7;
+    const dep = t<7 ? bal*0.25 : bal; bal-=dep;
+    const avail=o+dep+carry, cr=Math.min(avail,R); carry=avail-cr;
+    const cf=cr+s*(R-cr)-o;
+    v+=cf/Math.pow(1+r,t);
+  }
+  return v;
+}
+
+const labels={ pdn:v=>"-"+v+"%", pup:v=>"+"+v+"%", qdn:v=>"-"+v+"%", qup:v=>"+"+v+"%", cx:v=>"±"+v+"%", inf:v=>Number(v).toFixed(2)+"%", rho:v=>Number(v).toFixed(2), r:v=>Number(v).toFixed(2)+"%" };
+Object.keys(labels).forEach(id=>{ const el=document.getElementById(id), out=document.getElementById("v_"+id); el.addEventListener("input",()=>out.textContent=labels[id](el.value)); });
+
+function drawHistogram(canvas, values, markers){
+  const ctx=canvas.getContext("2d"), W=canvas.width, H=canvas.height; ctx.clearRect(0,0,W,H);
+  const min=Math.min(...values,...markers.map(m=>m.x)), max=Math.max(...values,...markers.map(m=>m.x));
+  const bins=40, counts=new Array(bins).fill(0), w=(max-min)/bins||1;
+  values.forEach(v=>{let i=Math.floor((v-min)/w); if(i>=bins)i=bins-1; if(i<0)i=0; counts[i]++;});
+  const mc=Math.max(...counts), pad=10, pw=W-2*pad, ph=H-2*pad, bw=pw/bins;
+  ctx.fillStyle="#805ad5"; counts.forEach((c,i)=>{const h=c/mc*ph; ctx.fillRect(pad+i*bw,H-pad-h,bw-1,h);});
+  markers.forEach(m=>{ if(m.x<min||m.x>max) return; const x=pad+(m.x-min)/(max-min)*pw; ctx.strokeStyle=m.color; ctx.lineWidth=2; ctx.setLineDash([5,4]); ctx.beginPath(); ctx.moveTo(x,pad); ctx.lineTo(x,H-pad); ctx.stroke(); ctx.setLineDash([]); });
+}
+
+let SIM=null, curOpt=1;
+function showOpt(){
+  if(!SIM) return; const v=SIM.res[curOpt], m=mean(v);
+  const sorted=[...v].sort((a,b)=>a-b);
+  document.getElementById("r_mean").textContent="$"+m.toFixed(2)+"M";
+  document.getElementById("r_p5").textContent="$"+sorted[Math.floor(0.05*sorted.length)].toFixed(2)+"M";
+  document.getElementById("r_ploss").textContent=(v.filter(x=>x<0).length/v.length*100).toFixed(1)+"%";
+  document.getElementById("r_eff").textContent=(m/CAPEX[curOpt]).toFixed(2);
+  drawHistogram(document.getElementById("hist"), v, [{x:0,color:"#c53030"},{x:PAPER_NPV[curOpt],color:"#d69e2e"},{x:m,color:"#2f855a"}]);
+}
+document.querySelectorAll("#optTabs .btn").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("#optTabs .btn").forEach(x=>x.classList.remove("active")); b.classList.add("active"); curOpt=+b.dataset.opt; showOpt();
+}));
+
+document.getElementById("runBtn").addEventListener("click",()=>{
+  const N=5000, g=id=>parseFloat(document.getElementById(id).value);
+  const pdn=1-g("pdn")/100, pup=1+g("pup")/100, qdn=1-g("qdn")/100, qup=1+g("qup")/100, cxr=g("cx")/100, infMax=g("inf")/100, rho=g("rho"), r=g("r")/100;
+  const c22=Math.sqrt(Math.max(0,1-rho*rho));
+  const res={1:[],2:[],3:[]};
+  for(let i=0;i<N;i++){
+    const z1=randNormalStd(), z2=rho*z1+c22*randNormalStd();
+    const price=triInv(normCdf(z1),pdn,1,pup);
+    const infl=triInv(normCdf(z2),0.026,0.0404,infMax);
+    const opx=Math.pow((1+infl)/1.0404,4);
+    const prod=triInv(Math.random(),qdn,1,qup);
+    const cx=triInv(Math.random(),1-cxr,1,1+cxr);
+    for(const k of [1,2,3]) res[k].push(npvOf(k,prod,price,opx,cx,r));
+  }
+  SIM={res};
+  const d=res[3].map((x,i)=>x-res[1][i]);
+  document.getElementById("r_win").textContent=(d.filter(x=>x>0).length/N*100).toFixed(1)+"%";
+  document.getElementById("r_diff").textContent=(mean(d)>=0?"+":"")+mean(d).toFixed(2)+"M";
+  document.getElementById("results").classList.remove("hidden");
+  showOpt();
+});
+</script>
+</body>
+</html>

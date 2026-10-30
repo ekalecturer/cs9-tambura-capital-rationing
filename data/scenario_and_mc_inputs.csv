@@ -1,0 +1,8 @@
+variable,downside,base,upside,source,note
+oil_price,-24%,0,+21%,paper scenario analysis,10-year historical deviation per paper
+oil_production,-40%,0,+120%,paper scenario analysis,reading of extracted text; ambiguous
+capex,-10%,0,+10%,paper scenario analysis,
+inflation,2.6%,4.04%,8.24%,paper scenario analysis,
+discount_rate,,10.45%,,paper,hurdle rate (WACC 10.33%)
+distribution_shape,,,,NOT STATED IN PAPER,reconstruction uses triangular
+price_inflation_correlation,,0.4,,RECONSTRUCTION ASSUMPTION,not in paper

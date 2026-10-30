@@ -1,0 +1,11 @@
+metric,option_1_cable,option_2_own_genset,option_3_rental,unit,source
+capex,2.39,1.89,0.39,USD million,Table (CAPEX)
+opex_life_of_project,1.38,3.25,5.46,USD million,Table III
+cost_recovery,3.90,5.27,5.98,USD million,Table III
+net_entitlement,2.58,2.23,1.84,USD million,Table III
+npv_at_10.45pct,1.44,1.33,1.41,USD million,Table III
+irr,0.36,0.41,1.76,fraction,Table III
+payback_years,1.79,1.58,0.48,years,Table III
+discounted_payback_years,2.22,1.90,0.53,years,Table III
+profitability_index,2.02,2.11,5.44,ratio,Table III
+discounted_profitability_index,1.57,1.66,4.41,ratio,Table III

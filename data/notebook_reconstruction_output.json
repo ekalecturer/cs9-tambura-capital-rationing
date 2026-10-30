@@ -1,0 +1,74 @@
+{
+ "paper_confirmed": [
+  {
+   "index": "Option-1 Cable",
+   "Capex": 2.39,
+   "Opex (life-of-project)": 1.38,
+   "Cost recovery": 3.9,
+   "Net entitlement": 2.58,
+   "NPV @10.45%": 1.44,
+   "IRR": 0.36,
+   "Payback (yrs)": 1.79,
+   "Profitability index": 2.02,
+   "Discounted PI": 1.57
+  },
+  {
+   "index": "Option-2 Own genset",
+   "Capex": 1.89,
+   "Opex (life-of-project)": 3.25,
+   "Cost recovery": 5.27,
+   "Net entitlement": 2.23,
+   "NPV @10.45%": 1.33,
+   "IRR": 0.41,
+   "Payback (yrs)": 1.58,
+   "Profitability index": 2.11,
+   "Discounted PI": 1.66
+  },
+  {
+   "index": "Option-3 Rental",
+   "Capex": 0.39,
+   "Opex (life-of-project)": 5.46,
+   "Cost recovery": 5.98,
+   "Net entitlement": 1.84,
+   "NPV @10.45%": 1.41,
+   "IRR": 1.76,
+   "Payback (yrs)": 0.48,
+   "Profitability index": 5.44,
+   "Discounted PI": 4.41
+  }
+ ],
+ "calibrated_share": {
+  "Option-1 Cable": 0.12430684317479836,
+  "Option-2 Own genset": 0.11595053072793673,
+  "Option-3 Rental": 0.0977130161306737
+ },
+ "break_even_npv_per_capex": 0.015000000000000013,
+ "mc": {
+  "Option-1 Cable": {
+   "mean NPV": 2.053093453245108,
+   "sd": 0.8610802138417867,
+   "P5": 0.8233352743612568,
+   "P95": 3.6132198364991854,
+   "P(NPV<0)": 0.0,
+   "mean NPV per $ capex": 0.8590349176757774
+  },
+  "Option-2 Own genset": {
+   "mean NPV": 1.8963482117559674,
+   "sd": 0.8021859785608182,
+   "P5": 0.7524165559058025,
+   "P95": 3.3516646236850263,
+   "P(NPV<0)": 0.0,
+   "mean NPV per $ capex": 1.0033588421989246
+  },
+  "Option-3 Rental": {
+   "mean NPV": 1.8817801433824877,
+   "sd": 0.6750162539632252,
+   "P5": 0.9163022655021568,
+   "P95": 3.1078224749710097,
+   "P(NPV<0)": 0.0,
+   "mean NPV per $ capex": 4.825077290724328
+  }
+ },
+ "p_opt3_beats_opt1": 0.1978,
+ "note": "Illustrative reconstruction; see README honesty disclosure."
+}
